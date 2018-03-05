@@ -9,8 +9,8 @@ Compilation and execution:
 
 1. To compile code: Extract all files and folders to a directory. 
 2. Set PATH and PKG_CONFIG_PATH to generate cpp code from bank.proto with "protoc --cpp_out=./ map.proto". 
-	export PATH=/home/phao3/protobuf/bin/bin:$PATH
-	export PKG_CONFIG_PATH=/home/phao3/protobuf/bin/lib/pkgconfig
+	PATH=<protobuf installed path>
+	PKG_CONFIG_PATH=<protobuf config path>
 3. This should generate .pb files. Run "make". 
 4. Create list_of_replicas.txt file to store all replica server details
 5. Once binary file has been created run branch with bash script as "bash server.sh <port#> <list_of_replicas.txt>" 
