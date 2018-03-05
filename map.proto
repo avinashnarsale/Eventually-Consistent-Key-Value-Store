@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+message MapStoreWrite { 
+	uint32 key=1;
+	string value=2;
+	uint32 write_level=3;
+	uint32 client_port=4;
+	string client_ip=5;
+}
+
+message MapStoreRead { 
+	uint32 key=1;
+	uint32 read_level=2;
+	uint32 client_port=3;
+	string client_ip=4;
+}
+
+message ReturnData {
+	uint32 key=1;
+	string value=2;
+	string timestamp=3;
+}
+
+message WriteToReplica {
+	uint32 key=1;
+	string value=2;
+	string timestamp=3;
+	uint32 client_port=4;
+	string client_ip=5;
+	uint32 co_port=6;
+	string co_ip=7;
+	uint32 write_level=8;
+	uint32 key_hinted_handoff=9;
+}
+
+message WriteReplyFromReplica {
+	string acknowledgment=1;
+	uint32 client_port=2;
+	string client_ip=3;
+	uint32 key_hinted_handoff=4;
+	uint32 write_level=5;
+	uint32 server_port=6;
+	string server_ip=7;
+}
+
+message HintedHandoffWrite {
+	uint32 key=1;
+	string value=2;
+	string timestamp=3;
+}
+
+message ReadRepairWrite {
+	uint32 key=1;
+	string value=2;
+	string timestamp=3;
+}
+
+message ReadFromReplica {
+	uint32 key=1;
+	uint32 read_level=2;
+	uint32 key_read_repair=3;
+	uint32 client_port=4;
+	string client_ip=5;
+	uint32 co_port=6;
+	string co_ip=7;
+}
+
+message ReadReplyFromReplica {
+	uint32 key=1;
+	string value=2;
+	string timestamp=3;
+	uint32 client_port=4;
+	string client_ip=5;
+	uint32 key_read_repair=6;
+	uint32 read_level=7;
+	uint32 server_port=8;
+	string server_ip=9;
+}
+
+message HintedHandoff {
+	uint32 key=1;
+	string value=2;
+	string timestamp=3;
+	uint32 for_server_port=4;
+	string for_server_ip=5;
+}
+
+message HintedHandoffLog {
+	repeated HintedHandoff hinted_log = 1;
+}
+
+message CommitLog {
+	repeated WriteToReplica commit_log = 1;
+}
+
+message MapMessage {
+	oneof map_message {
+		MapStoreWrite map_write = 1;
+		MapStoreRead map_read = 2;
+		ReturnData map_metadata = 3;
+		WriteToReplica map_replica_write = 4;
+		ReadFromReplica map_replica_read = 5;
+		ReadReplyFromReplica map_replica_reply_read = 6;
+		ReadRepairWrite map_read_repair_write = 7;
+		WriteReplyFromReplica map_replica_reply_write = 8;
+		HintedHandoffWrite map_handoff_replica_write = 9;
+	}
+}

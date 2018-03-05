@@ -1,0 +1,3 @@
+<server_1_ip> <server_1_port>
+<server_2_ip> <server_2_port>
+<server_3_ip> <server_3_port>
